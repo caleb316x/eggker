@@ -16,9 +16,12 @@ Route::middleware([
     //     return view('dashboard');
     // })->name('dashboard');
     // Route::get('/', [EggController::class, 'index'])->name('dashboard');
+
+    
+    Route::get('/', [EggController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [EggController::class, 'dashboard'])->name('dashboard');
+    Route::get('/harvests', [EggController::class, 'index'])->name('harvests');
+    Route::get('/harvest/{id}', [EggController::class, 'show'])->name('harvest');
 });
 
-Route::get('/', [EggController::class, 'dashboard'])->name('dashboard');
-Route::get('/dashboard', [EggController::class, 'dashboard'])->name('dashboard');
-Route::get('/harvests', [EggController::class, 'index'])->name('harvests');
-Route::get('/harvest/{id}', [EggController::class, 'show'])->name('harvest');
+
