@@ -5,15 +5,99 @@ namespace App\Http\Controllers;
 use App\Models\Egg;
 use App\Http\Requests\StoreEggRequest;
 use App\Http\Requests\UpdateEggRequest;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class EggController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function dashboard()
     {
-        //
+        $eggs = [
+            Egg::sum('peewee_count'),
+            Egg::sum('pullet_count'),
+            Egg::sum('small_count'),
+            Egg::sum('medium_count'),
+            Egg::sum('large_count'),
+            Egg::sum('extra_large_count'),
+            Egg::sum('jumbo_count'),
+            Egg::sum('crack_count')
+        
+        ];
+
+        // $today = Egg::whereDate('sorting_date','', Carbon::today())->toDateString();
+        $today = Carbon::today()->toDateString();
+        $todayEggs = Egg::whereDate('sorting_date', $today)->get();
+        $dailysum = $todayEggs[0]->peewee_count + $todayEggs[0]->pullet_count + $todayEggs[0]->small_count + $todayEggs[0]->medium_count + $todayEggs[0]->large_count + $todayEggs[0]->extra_large_count + $todayEggs[0]->jumbo_count;
+        
+        // For this week (starting from Monday)
+        $startDateOfWeek = Carbon::now()->startOfWeek(); // Assuming Monday is the start of the week
+        $endDateOfWeek = Carbon::now()->endOfWeek();
+
+        $weeklyEggs = Egg::whereBetween('sorting_date', [$startDateOfWeek, $endDateOfWeek])->get();
+
+        $weeklySum = 0;
+        $weeklySumCrack = 0;
+
+        foreach ($weeklyEggs as $day) {
+            $weeklySum += $day->peewee_count +
+                  $day->pullet_count +
+                  $day->small_count +
+                  $day->medium_count +
+                  $day->large_count +
+                  $day->extra_large_count +
+                  $day->jumbo_count;
+            $weeklySumCrack += $day->crack_count;
+        }
+
+        // For this month
+        $startDateOfMonth = Carbon::now()->startOfMonth();
+        $endDateOfMonth = Carbon::now()->endOfMonth();
+
+        $monthlyEggs = Egg::whereBetween('sorting_date', [$startDateOfMonth, $endDateOfMonth])->get();
+
+
+        $monthlySum = 0;
+        $monthlySumCrack = 0;
+        foreach ($monthlyEggs as $day) {
+            $monthlySum += $day->peewee_count +
+                  $day->pullet_count +
+                  $day->small_count +
+                  $day->medium_count +
+                  $day->large_count +
+                  $day->extra_large_count +
+                  $day->jumbo_count;
+            $monthlySumCrack += $day->crack_count;
+        }
+
+        $data = [
+            $eggs,
+            $todayEggs,
+            $dailysum,
+            $weeklyEggs,
+            $weeklySum,
+            $weeklySumCrack,
+            $monthlyEggs,
+            $monthlySum,
+            $monthlySumCrack,
+        ];
+
+        return view('dashboard')->with('data', $data);
+    }
+
+    public function index(Request $request)
+    {
+
+        if ($request->date == null) {
+            $eggs = Egg::orderBy('sorting_date', 'desc')->paginate(20);
+            return view('egg.index')->with('eggs', $eggs);
+        } else {
+            $d = date("Y-m-d", strtotime($request->date));  
+            $eggs = Egg::whereDate('sorting_date', $d)->paginate(20);
+            return view('egg.index')->with('eggs', $eggs);
+        }
     }
 
     /**
@@ -35,9 +119,25 @@ class EggController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Egg $egg)
+    public function show($id)
     {
-        //
+        $egg = Egg::find($id);
+        $sum = $egg->peewee_count + $egg->pullet_count + $egg->small_count + $egg->medium_count + $egg->large_count + $egg->extra_large_count + $egg->jumbo_count;
+        $data = [
+                    $egg,
+                    [
+                        $egg->peewee_count,
+                        $egg->pullet_count,
+                        $egg->small_count,
+                        $egg->medium_count,
+                        $egg->large_count,
+                        $egg->extra_large_count,
+                        $egg->jumbo_count,
+                        $egg->crack_count
+                    ],
+                    $sum
+                ];
+        return view('egg.show')->with('data', $data);
     }
 
     /**

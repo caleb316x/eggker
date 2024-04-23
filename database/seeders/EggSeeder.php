@@ -18,7 +18,8 @@ class EggSeeder extends Seeder
         
 
         // Generate dummy data and insert into the eggs table
-        for ($i = 0; $i < 10; $i++) {
+        $days = 100;
+        for ($i = 0; $i < $days; $i++) {
             $currentDate = Carbon::now();
             Egg::create([
                 'peewee_count' => $faker->numberBetween(0, 100),
@@ -29,7 +30,7 @@ class EggSeeder extends Seeder
                 'extra_large_count' => $faker->numberBetween(0, 100),
                 'jumbo_count' => $faker->numberBetween(0, 100),
                 'crack_count' => $faker->numberBetween(0, 10),
-                'sorting_date' => $currentDate->addDay($i)->toDateString(),
+                'sorting_date' => $currentDate->subDays(($days - 1) - $i)->toDateString(),
             ]);
         }
     }
