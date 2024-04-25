@@ -13,10 +13,10 @@
                 
                 <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Today's Harvest ({{ \Carbon\Carbon::now()->format('F d') }})</h5>
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Today's Harvest <br>({{ $data[2] == null ? \Carbon\Carbon::now()->format('F d') : $data[1][0]->created_at->format('F d, Y h:i a') }})</h5>
                     </a>
                     @if ($data[2] == null)
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">No Eggs Harvested Today</p>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">No eggs were harvested today</p>
                     @else
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Peewee: <span class="font-bold">{{$data[1][0]->peewee_count}}</span></p>
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Pullet: <span class="font-bold">{{$data[1][0]->pullet_count}}</span></p>
