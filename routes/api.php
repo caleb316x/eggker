@@ -19,8 +19,10 @@ Route::post('/add', function (Request $request) {
         'extra_large_count' => 'required|integer|min:0',
         'jumbo_count' => 'required|integer|min:0',
         'crack_count' => 'required|integer|min:0',
-        'sorting_date' => 'required|date',
     ]);
+
+    // Set sorting_date to current date
+    $validatedData['sorting_date'] = now();
 
     // Create a new Egg instance with the validated data
     $egg = new Egg();
