@@ -26,4 +26,8 @@ class Egg extends Model
     {
         return $this->sorting_date ? Carbon::parse($this->sorting_date)->format('F d, Y') : null;
     }
+    public function dateTimeSimple()
+    {
+        return $this->created_at->format('F d, Y - h:i a');
+    }
 }

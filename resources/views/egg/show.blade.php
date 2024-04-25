@@ -13,7 +13,7 @@
             <br>
                 <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
                     <div class="grid gap-4">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-dark">Date: {{$data[0]->dateSimple()}}</h5>
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-dark">Date: {{$data[0]->dateTimeSimple()}}</h5>
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-dark">Total Eggs: {{$data[2]}}</h5>
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
