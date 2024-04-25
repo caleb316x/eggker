@@ -27,11 +27,15 @@ class EggController extends Controller
         
         ];
 
+        $dailysum = null;
         // $today = Egg::whereDate('sorting_date','', Carbon::today())->toDateString();
         $today = Carbon::today()->toDateString();
         $todayEggs = Egg::whereDate('sorting_date', $today)->get();
-        $dailysum = $todayEggs[0]->peewee_count + $todayEggs[0]->pullet_count + $todayEggs[0]->small_count + $todayEggs[0]->medium_count + $todayEggs[0]->large_count + $todayEggs[0]->extra_large_count + $todayEggs[0]->jumbo_count;
         
+        if(count($todayEggs) > 0){
+            $dailysum = $todayEggs[0]->peewee_count + $todayEggs[0]->pullet_count + $todayEggs[0]->small_count + $todayEggs[0]->medium_count + $todayEggs[0]->large_count + $todayEggs[0]->extra_large_count + $todayEggs[0]->jumbo_count;
+        }
+
         // For this week (starting from Monday)
         $startDateOfWeek = Carbon::now()->startOfWeek(); // Assuming Monday is the start of the week
         $endDateOfWeek = Carbon::now()->endOfWeek();
@@ -40,6 +44,8 @@ class EggController extends Controller
 
         $weeklySum = 0;
         $weeklySumCrack = 0;
+
+        $weekly_by_type = [0,0,0,0,0,0,0];
 
         foreach ($weeklyEggs as $day) {
             $weeklySum += $day->peewee_count +
@@ -50,6 +56,14 @@ class EggController extends Controller
                   $day->extra_large_count +
                   $day->jumbo_count;
             $weeklySumCrack += $day->crack_count;
+
+            $weekly_by_type[0] += $day->peewee_count;
+            $weekly_by_type[1] += $day->pullet_count;
+            $weekly_by_type[2] += $day->small_count;
+            $weekly_by_type[3] += $day->medium_count;
+            $weekly_by_type[4] += $day->large_count;
+            $weekly_by_type[5] += $day->extra_large_count;
+            $weekly_by_type[6] += $day->jumbo_count;
         }
 
         // For this month
@@ -61,6 +75,9 @@ class EggController extends Controller
 
         $monthlySum = 0;
         $monthlySumCrack = 0;
+
+        $monthly_by_type = [0,0,0,0,0,0,0];
+
         foreach ($monthlyEggs as $day) {
             $monthlySum += $day->peewee_count +
                   $day->pullet_count +
@@ -70,6 +87,15 @@ class EggController extends Controller
                   $day->extra_large_count +
                   $day->jumbo_count;
             $monthlySumCrack += $day->crack_count;
+
+            $monthly_by_type[0] += $day->peewee_count;
+            $monthly_by_type[1] += $day->pullet_count;
+            $monthly_by_type[2] += $day->small_count;
+            $monthly_by_type[3] += $day->medium_count;
+            $monthly_by_type[4] += $day->large_count;
+            $monthly_by_type[5] += $day->extra_large_count;
+            $monthly_by_type[6] += $day->jumbo_count;
+
         }
 
         $data = [
@@ -82,6 +108,8 @@ class EggController extends Controller
             $monthlyEggs,
             $monthlySum,
             $monthlySumCrack,
+            $weekly_by_type,
+            $monthly_by_type,
         ];
 
         return view('dashboard')->with('data', $data);
