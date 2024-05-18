@@ -24,4 +24,15 @@
 
         @livewireScripts
     </body>
+    <style>
+        body {
+            background-image: url("{{ url('/resources/assets/images/bg.png') }}");
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: cover; /* Resize the background image to cover the entire container */
+        }
+        .min-h-screen {
+            background-color: rgba(0, 0, 0, 0);
+        }
+    </style>
 </html>
