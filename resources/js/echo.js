@@ -12,22 +12,3 @@ window.Echo = new Echo({
     forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
     enabledTransports: ['ws', 'wss'],
 });
-
-// import Echo from 'laravel-echo';
-// window.Pusher = require('pusher-js');
-
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: import.meta.env.VITE_PUSHER_APP_KEY,
-//     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
-//     encrypted: true,
-//     // forceTLS: true
-// });
-
-// console.log("👂")
-// var channel = window.Echo.channel('eggker');
-// channel.listen('.MessageSent', function(data) {
-//   alert(JSON.stringify(data));
-// });
-// console.log("👂!")
