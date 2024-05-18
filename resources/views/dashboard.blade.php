@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-12">
 
             <div id="app2" class="grid grid-cols-3 gap-4" >
-                    <Dash   :month_now="{{ \Carbon\Carbon::now()->format('F') }}" 
+                    <Dash   month_now="{{ \Carbon\Carbon::now()->format('F') }}" 
                             :egg="{{ count($data[1]) >0 ? json_encode($data[1][0]) : null }}"
                             :w_egg="{{ count($data[9]) >0 ? json_encode($data[9]) : null }}"
                             :m_egg="{{ count($data[10]) >0 ? json_encode($data[10]) : null }}"
