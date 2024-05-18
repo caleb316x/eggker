@@ -11,9 +11,12 @@ class MessageController extends Controller
     public function receiveMessage(Request $request)
     {
         $message = $request->input('message');
+        $reponse = $this->addEgg($message);
         event(new MessageSent($message));
-        // dd($message);
+        return $reponse;
+    }
 
+    public static function addEgg($message){
         $messages = [
             "peewee",
             "pullet",

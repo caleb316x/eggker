@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Egg;
 use App\Http\Controllers\MessageController;
 
-Route::post('/receive-message', [MessageController::class, 'receiveMessage']);
-
+Route::post('/egg-size', [MessageController::class, 'receiveMessage']);
 
 Route::get('/user', function (Request $request) {
     return $request->user();

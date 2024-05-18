@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Events\MessageSent;
 use function Laravel\Prompts\text;
+use function Laravel\Prompts\select;
+use App\Http\Controllers\MessageController;
 
 class Send extends Command
 {
@@ -13,21 +15,34 @@ class Send extends Command
      *
      * @var string
      */
-    protected $signature = 'send:message';
+    protected $signature = 'send:size';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'send message sample';
+    protected $description = 'Simulate sending size from arduino';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $message = text(label: "Enter Message",required: true);
+        $message = select(
+            label: 'Select size',
+            options: [
+                'peewee', 
+                'pullet', 
+                'small',
+                'meduim',
+                'large',
+                'extra_large',
+                'jumbo'
+            ],
+        );
+
+        MessageController::addEgg($message);
         MessageSent::dispatch($message);
     }
 }
