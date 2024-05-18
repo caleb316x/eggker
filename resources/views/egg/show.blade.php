@@ -13,7 +13,7 @@
             <br>
                 <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
                     <div class="grid gap-4">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-dark">Date: {{$data[0]->dateTimeSimple()}}</h5>
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-dark">Date: {{$data[0]->dateSimple()}}</h5>
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-dark">Total Eggs: {{$data[2]}}</h5>
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -84,14 +84,14 @@
                                             {{ $data[1][6] }}
                                         </td>
                                     </tr>
-                                    <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <!-- <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Crack
                                         </th>
                                         <td class="px-6 py-4">
                                             {{ $data[1][7] }}
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>

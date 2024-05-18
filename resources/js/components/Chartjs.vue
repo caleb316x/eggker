@@ -46,7 +46,6 @@ export default {
                     "large",
                     "extra_large",
                     "jumbo",
-                    "crack",
                 ],
 
                 datasets: [],
@@ -83,7 +82,6 @@ export default {
             tempdata.push(egg.large_count);
             tempdata.push(egg.extra_large_count);
             tempdata.push(egg.jumbo_count);
-            tempdata.push(egg.crack_count);
             
             t.data.datasets.push({
                 label: egg.sorting_date,

@@ -32,7 +32,6 @@ export default {
                     "large",
                     "extra_large",
                     "jumbo",
-                    "crack",
                 ],
                 datasets: [
                     {
