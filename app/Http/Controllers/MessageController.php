@@ -12,7 +12,7 @@ class MessageController extends Controller
     {
         $message = $request->input('message');
         event(new MessageSent($message));
-        dd($message);
+        // dd($message);
 
         $messages = [
             "peewee",
